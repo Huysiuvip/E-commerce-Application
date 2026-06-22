@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { PinoLogger } from 'nestjs-pino';
-import { CORRELATION_ID_HEADER } from 'src/constants/correlation-id';
+import { CORRELATION_ID_HEADER } from 'src/shared/constants/correlation-id';
 import {
   buildApiErrorPayload,
   extractFromHttpExceptionBody,
   payloadFromUnknownException,
-} from 'src/helpers/api-error-response';
+} from 'src/shared/helpers/api-error-response';
 
 @Catch()
 @Injectable()

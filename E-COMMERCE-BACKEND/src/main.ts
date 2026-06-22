@@ -1,77 +1,28 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import cookieParser from 'cookie-parser';
-import { parserEnvOrigins } from './utils/parse-env-origins';
-import { ValidationPipe } from '@nestjs/common';
-import { VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
-
-const getCorsAllowList = (config: ConfigService) => {
-  return parserEnvOrigins(
-    config.get<string>('CLIENT_URL'),
-    config.get<string>('CORS_OTHER_URL'),
-  );
-};
+import { APP_CONFIG } from './configs/app/app.config';
+import { setupAPP } from './bootstrap/setup-app';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    bufferLogs: true,
+  });
   app.useLogger(app.get(Logger));
 
-  app.use(cookieParser());
-
   const config = app.get(ConfigService);
+  const appCfg = config.getOrThrow<{ port: number }>(APP_CONFIG);
   const logger = app.get(Logger);
 
-  //cors
-  const allowList = getCorsAllowList(config);
-  app.enableCors({
-    origin: (requestOrigin: string, callback) => {
-      if (!requestOrigin) {
-        callback(null, true);
-        return;
-      }
+  setupAPP(app, logger, config);
 
-      if (allowList.includes(requestOrigin)) {
-        callback(null, true);
-        return;
-      }
-
-      logger.warn(
-        `CORS: blocked request from origin "${requestOrigin}" (not in allowList)`,
-      );
-
-      callback(null, false);
-    },
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Accept',
-      'X-Requested-With',
-    ],
-    credentials: true,
-  });
-
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      transformOptions: { enableImplicitConversion: true },
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
-
-  // Api versioning
-  app.setGlobalPrefix('api');
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
-  });
-
-  const port = config.get<number>('PORT', 8080);
+  const port = appCfg.port;
   await app.listen(port);
   logger.log(`Application is running on port: ${port}`);
 }
-void bootstrap();
+void bootstrap().catch((error) => {
+  console.error('Bootstrap failed', error);
+  process.exit(1);
+});
