@@ -16,7 +16,7 @@ import { CORRELATION_ID_HEADER } from 'src/shared/constants/correlation-id';
             level: isDev ? 'debug' : 'info',
             transport: isDev
               ? {
-                  target: 'pino',
+                  target: 'pino-pretty',
                   options: {
                     singleLine: true,
                     translateTime: 'SYS:standard',

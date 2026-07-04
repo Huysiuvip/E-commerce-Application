@@ -20,7 +20,7 @@ async function bootstrap() {
 
   const port = appCfg.port;
   await app.listen(port);
-  logger.log(`Application is running on port: ${port}`);
+  logger.log(`Application is running on port: http://localhost:${port}`);
 }
 void bootstrap().catch((error) => {
   console.error('Bootstrap failed', error);

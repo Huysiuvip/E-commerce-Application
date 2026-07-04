@@ -5,11 +5,12 @@ export const envSchema = z.object({
     .enum(['development', 'production', 'test'])
     .default('development'),
   PORT: z.coerce.number().default(8080),
-  DB_HOST: z.string().min(1).default('localhost'),
-  DB_PORT: z.coerce.number().default(5432),
-  DB_USERNAME: z.string().min(1).default('postgres'),
-  DB_PASSWORD: z.string().min(1).default('postgres'),
-  DB_NAME: z.string().min(1).default('ecommerce'),
+  // Database
+  DB_HOST: z.string().trim().min(1),
+  DB_PORT: z.coerce.number().int().min(1).max(65535),
+  DB_USERNAME: z.string().trim().min(1),
+  DB_PASSWORD: z.string().min(1),
+  DB_NAME: z.string().trim().min(1),
 
   // throttler
   THROTTLE_TTL_MS: z.coerce.number().default(1000),
