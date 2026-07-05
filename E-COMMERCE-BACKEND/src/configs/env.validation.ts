@@ -11,6 +11,10 @@ export const envSchema = z.object({
   DB_USERNAME: z.string().trim().min(1),
   DB_PASSWORD: z.string().min(1),
   DB_NAME: z.string().trim().min(1),
+  DB_POOL_MAX: z.coerce.number().default(10),
+  DB_POOL_MIN: z.coerce.number().default(2),
+  DB_POOL_CONNECTION_TIMEOUT_MS: z.coerce.number().default(5000),
+  DB_POOL_IDLE_TIMEOUT_MS: z.coerce.number().default(30000),
 
   // throttler
   THROTTLE_TTL_MS: z.coerce.number().default(1000),
