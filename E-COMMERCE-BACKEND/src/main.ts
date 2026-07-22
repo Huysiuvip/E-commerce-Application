@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
-import { APP_CONFIG } from './configs/app/app.config';
+import { APP_CONFIG } from './config/app/app.config';
 import { setupAPP } from './bootstrap/setup-app';
 import { NestExpressApplication } from '@nestjs/platform-express';
 

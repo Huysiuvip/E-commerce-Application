@@ -1,15 +1,17 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { validationEnv } from './configs/env.validation';
-import { PinoLoggerModule } from './configs/logger/logger.module';
-import { AppThrottlerModule } from './configs/throttler/throttler.module';
+import { validationEnv } from './config/env.validation';
+import { PinoLoggerModule } from './config/logger/logger.module';
+import { AppThrottlerModule } from './config/throttler/throttler.module';
 import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { CorrelationIdMiddleware } from './core/middlewares/correlation-id.middleware';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
-import { allConfigs } from './configs/configuration';
+import { allConfigs } from './config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfigService } from './configs/database/typeorm-config.service';
+import { TypeOrmConfigService } from './config/database/typeorm-config.service';
+import { UserModule } from './app/user/user.module';
+import { AuthModule } from './app/auth/auth.module';
 
 const envFile =
   process.env.NODE_ENV === 'production'
@@ -30,6 +32,8 @@ const envFile =
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    UserModule,
+    AuthModule,
   ],
   providers: [
     {

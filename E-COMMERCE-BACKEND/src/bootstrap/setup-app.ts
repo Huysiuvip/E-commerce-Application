@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
-import { APP_CONFIG } from 'src/configs/app/app.config';
+import { APP_CONFIG } from 'src/config/app/app.config';
 
 export function setupAPP(
   app: NestExpressApplication,
