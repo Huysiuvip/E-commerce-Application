@@ -1,0 +1,337 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Semantic — exposed as Tailwind utilities */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  /* Order status */
+  --color-status-pending: var(--status-pending);
+  --color-status-confirmed: var(--status-confirmed);
+  --color-status-processing: var(--status-processing);
+  --color-status-shipping: var(--status-shipping);
+  --color-status-delivered: var(--status-delivered);
+  --color-status-cancelled: var(--status-cancelled);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(54.6% 0.245 262.881);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.96 0.01 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: oklch(0.55 0.18 260);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.92 0.01 260);
+  --input: oklch(0.92 0.01 260);
+  --ring: oklch(0.55 0.15 260);
+  --radius: 0.75rem;
+
+  /* ── Semantic status colors ────────────────────────────────── */
+  --success: oklch(0.52 0.17 145);
+  --success-foreground: oklch(0.985 0 0);
+  --success-subtle: oklch(0.93 0.05 145);
+
+  --warning: oklch(0.72 0.15 75);
+  --warning-foreground: oklch(0.145 0 0);
+
+  /* Order status badges */
+  --status-pending: oklch(0.72 0.15 75); /* yellow */
+  --status-confirmed: oklch(0.52 0.18 220); /* blue */
+  --status-processing: oklch(0.52 0.17 290); /* purple */
+  --status-shipping: var(--primary);
+  --status-delivered: var(--success);
+  --status-cancelled: var(--destructive);
+
+  /* Chart & sidebar */
+  --chart-1: oklch(0.55 0.18 260);
+  --chart-2: oklch(0.65 0.15 220);
+  --chart-3: oklch(0.5 0.12 280);
+  --chart-4: oklch(0.7 0.1 200);
+  --chart-5: oklch(0.45 0.2 260);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.35 0.14 260);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.96 0.01 260);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.92 0.01 260);
+  --sidebar-ring: oklch(0.55 0.15 260);
+}
+
+.dark {
+  --background: oklch(0.13 0.02 260);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.17 0.02 260);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.17 0.02 260);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(64.6% 0.245 262.881);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.25 0.03 260);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.25 0.03 260);
+  --muted-foreground: oklch(0.65 0.05 260);
+  --accent: oklch(0.55 0.18 260);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.28 0.03 260);
+  --input: oklch(0.28 0.03 260);
+  --ring: oklch(0.55 0.15 260);
+
+  --success: oklch(0.62 0.17 145);
+  --success-foreground: oklch(0.985 0 0);
+  --success-subtle: oklch(0.22 0.06 145);
+
+  --warning: oklch(0.78 0.14 75);
+  --warning-foreground: oklch(0.145 0 0);
+
+  --status-pending: oklch(0.78 0.14 75);
+  --status-confirmed: oklch(0.62 0.18 220);
+  --status-processing: oklch(0.62 0.17 290);
+
+  --chart-1: oklch(0.65 0.18 260);
+  --chart-2: oklch(0.7 0.15 220);
+  --chart-3: oklch(0.6 0.12 280);
+  --chart-4: oklch(0.75 0.1 200);
+  --chart-5: oklch(0.55 0.2 260);
+  --sidebar: oklch(0.17 0.02 260);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.65 0.18 260);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.25 0.03 260);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.28 0.03 260);
+  --sidebar-ring: oklch(0.55 0.15 260);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* ── Layout shells ───────────────────────────────────────────── */
+
+  /* Full-page shell: min-h-screen + theme background */
+  .page-shell {
+    @apply min-h-screen bg-background;
+  }
+
+  /* Standard page content wrapper */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6;
+  }
+
+  /* Centered layout for auth pages */
+  .auth-container {
+    @apply container mx-auto px-4 py-12;
+  }
+
+  /* ── Typography ──────────────────────────────────────────────── */
+
+  /* Main page title — responsive */
+  .page-title {
+    @apply text-2xl sm:text-3xl font-bold text-foreground;
+  }
+
+  /* Larger fixed page title (account, order detail) */
+  .page-title-lg {
+    @apply text-3xl font-bold text-foreground;
+  }
+
+  /* Section/card heading */
+  .section-title {
+    @apply text-xl font-bold text-foreground;
+  }
+
+  /* ── Navigation ──────────────────────────────────────────────── */
+
+  /* Breadcrumb row */
+  .breadcrumb {
+    @apply flex flex-wrap items-center gap-2 mb-6 text-sm text-muted-foreground;
+  }
+
+  .breadcrumb-link {
+    @apply hover:text-primary transition-colors;
+  }
+
+  /* ── States ──────────────────────────────────────────────────── */
+
+  /* Centered loading / empty state container */
+  .state-center {
+    @apply flex items-center justify-center py-20;
+  }
+
+  /* Loading spinner — large */
+  .spinner-lg {
+    @apply animate-spin rounded-full h-12 w-12 border-b-2 border-primary;
+  }
+
+  /* ── Detail-page grid (2/3 + 1/3 split) ─────────────────────── */
+
+  .detail-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-6;
+  }
+
+  .detail-main {
+    @apply lg:col-span-2 space-y-6;
+  }
+
+  .detail-sidebar {
+    @apply lg:col-span-1 space-y-6;
+  }
+
+  /* ── Success / discount callout colors ───────────────────────── */
+
+  .text-success {
+    @apply text-success;
+  }
+
+  .discount-line {
+    @apply flex justify-between text-success;
+  }
+
+  /* ── Header ─────────────────────────────────────────────────── */
+
+  .header-nav-link {
+    @apply relative shrink-0 cursor-pointer py-1.5 text-[15px] transition-colors duration-150 ease-out;
+  }
+  .header-nav-link-active {
+    @apply font-bold text-primary;
+  }
+  .header-nav-link-inactive {
+    @apply font-semibold text-foreground/80 hover:text-primary;
+  }
+  .header-nav-underline {
+    @apply absolute bottom-0 left-0 h-[2px] w-full origin-left rounded-full bg-primary transition-transform duration-200 ease-out;
+  }
+  .header-icon-btn {
+    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-secondary/30 text-foreground shadow-sm transition-all duration-150 ease-out hover:scale-105 hover:border-primary/50 hover:bg-primary/5 hover:text-primary active:scale-95;
+  }
+  .header-cart-active {
+    @apply border-primary bg-primary/10 text-primary;
+    box-shadow: 0 0 12px color-mix(in oklch, var(--primary) 20%, transparent);
+  }
+  .header-cart-badge {
+    @apply absolute top-2 right-2 h-2.5 w-2.5 animate-pulse rounded-full bg-primary ring-2 ring-background;
+    box-shadow: 0 0 8px color-mix(in oklch, var(--primary) 50%, transparent);
+  }
+  .header-mobile-nav-link {
+    @apply px-4 py-3 text-sm rounded-xl transition-all duration-150 ease-out cursor-pointer font-semibold text-foreground/80 hover:bg-primary/5 hover:text-primary;
+  }
+  .header-mobile-nav-link-active {
+    @apply font-bold text-primary bg-primary/5;
+  }
+
+  /* ── Product description from CMS ───────────────────────────── */
+
+  .product-description-html {
+    @apply max-w-none text-muted-foreground;
+  }
+  .product-description-html :where(h1, h2, h3, h4, h5, h6) {
+    @apply font-semibold text-foreground;
+  }
+  .product-description-html :where(h1) {
+    @apply text-2xl mt-6 mb-3 first:mt-0;
+  }
+  .product-description-html :where(h2) {
+    @apply text-xl mt-5 mb-2;
+  }
+  .product-description-html :where(h3, h4, h5, h6) {
+    @apply text-base mt-4 mb-2;
+  }
+  .product-description-html :where(p) {
+    @apply leading-relaxed my-3 first:mt-0;
+  }
+  .product-description-html :where(ul) {
+    @apply list-disc pl-6 my-3;
+  }
+  .product-description-html :where(ol) {
+    @apply list-decimal pl-6 my-3;
+  }
+  .product-description-html :where(a) {
+    @apply text-primary underline underline-offset-2;
+  }
+  .product-description-html :where(img, video, table, pre) {
+    @apply max-w-full;
+  }
+  .product-description-html :where(table) {
+    @apply block w-full overflow-x-auto;
+  }
+  .product-description-html :where(p, li) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .product-description-html :where(iframe) {
+    @apply max-w-full rounded-md border-0 my-4 block mx-auto bg-muted;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 12rem;
+  }
+}
