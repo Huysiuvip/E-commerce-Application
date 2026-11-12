@@ -76,7 +76,7 @@ export class EmailService {
     }
   }
 
-  async sendVerification(
+  async sendVerificationEmail(
     to: string,
     name: string,
     url: string,
