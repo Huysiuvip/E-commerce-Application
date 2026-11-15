@@ -48,3 +48,20 @@ export const useSignUp = (messages?: AuthToastMessage & { verifyEmail?: string }
     },
   });
 };
+
+export const useResendVerificationEmail = (messages?: AuthToastMessage) =>{
+  return useMutation({
+    mutationFn: (email: string) => authService.resendVerificationEmail(email),
+
+    onSuccess() {
+      toast.success(messages?.success ?? 'Verification email sent! Please check your inbox')
+    },
+
+    onError: (error: unknown) => {
+      const message = ( error as {
+        response?: {data?:{message?: string}}
+      })?.response?.data?.message;
+      toast.error(typeof message === "string" ? message : (messages?.error ?? "Failed to send verification Email"))
+    }
+  })
+}
