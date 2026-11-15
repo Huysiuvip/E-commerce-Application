@@ -23,7 +23,13 @@ async function postAuthEmail(
     }
   } catch (error) {
     const status = axios.isAxiosError(error) ? error.response?.status : undefined;
-    console.error(`[auth] Auth email request failed (${path}${status ? `, ${status}` : ''} )`);
+    const message = axios.isAxiosError(error)
+      ? error.response?.data?.message
+      : undefined;
+    console.error(
+      `[auth] Auth email request failed (${path}${status ? `, ${status}` : ''})`,
+      message ?? error,
+    );
   }
 }
 

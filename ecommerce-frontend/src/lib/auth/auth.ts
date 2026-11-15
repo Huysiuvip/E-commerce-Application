@@ -7,7 +7,9 @@ import { sendPasswordResetEmail, sendVerificationEmail } from './send-auth-email
 
 function getAppUrl(): string {
   const raw =
-    process.env.BETTER_AUTH_APP_URL || process.env.NEXT_PUBLIC_APP_ERL || 'http://loacalhost:3000';
+    process.env.BETTER_AUTH_APP_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    'http://localhost:3000';
 
   return raw.replace(/\/+$/, '');
 }

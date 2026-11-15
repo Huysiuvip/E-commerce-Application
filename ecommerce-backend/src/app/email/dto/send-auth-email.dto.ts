@@ -16,7 +16,7 @@ export class SendAuthEmailDto {
   @MaxLength(255)
   name: string;
 
-  @IsUrl()
+  @IsUrl({ require_tld: false })
   @MaxLength(2048)
   url: string;
 }
