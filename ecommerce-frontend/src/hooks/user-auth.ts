@@ -1,6 +1,7 @@
 import { authService } from '@/services/auth.services';
-import { SignUpDto } from '@/types/api.type';
+import { SignInDto, SignUpDto } from '@/types/api.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { error } from 'console';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -49,19 +50,54 @@ export const useSignUp = (messages?: AuthToastMessage & { verifyEmail?: string }
   });
 };
 
-export const useResendVerificationEmail = (messages?: AuthToastMessage) =>{
+export const useResendVerificationEmail = (messages?: AuthToastMessage) => {
   return useMutation({
     mutationFn: (email: string) => authService.resendVerificationEmail(email),
 
     onSuccess() {
-      toast.success(messages?.success ?? 'Verification email sent! Please check your inbox')
+      toast.success(messages?.success ?? 'Verification email sent! Please check your inbox');
     },
 
     onError: (error: unknown) => {
-      const message = ( error as {
-        response?: {data?:{message?: string}}
-      })?.response?.data?.message;
-      toast.error(typeof message === "string" ? message : (messages?.error ?? "Failed to send verification Email"))
-    }
-  })
-}
+      const message = (
+        error as {
+          response?: { data?: { message?: string } };
+        }
+      )?.response?.data?.message;
+      toast.error(
+        typeof message === 'string'
+          ? message
+          : (messages?.error ?? 'Failed to send verification Email'),
+      );
+    },
+  });
+};
+
+export const useSignIn = (messages?: AuthToastMessage, redirectTo?: string) => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: SignInDto & { rememberMe?: boolean }) => authService.signIn(data),
+
+    onSuccess: (response) => {
+      queryClient.setQueryData(['auth', 'session'], {
+        user: response.user,
+        isGuest: false,
+        isAuthenticated: true,
+      });
+      toast.success(messages?.success ?? 'SignIn successful!');
+      router.push(redirectTo ?? '/product/catalog');
+    },
+
+    onError: (error: unknown) => {
+      const message = (
+        error as {
+          response?: { data?: { messages?: string } };
+        }
+      )?.response?.data?.messages;
+
+      toast.error(typeof message === 'string' ? message : (messages?.error ?? 'SignIn failed'));
+    },
+  });
+};
